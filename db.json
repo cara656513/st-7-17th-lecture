@@ -17,7 +17,10 @@
       "title": "2",
       "contents": "222",
       "isCompleted": false,
-      "createdAt": 1718558659109
+      "createdAt": 1718558659109,
+      "extraProperty": {
+        "data1": "extra data 1"
+      }
     },
     {
       "id": "1718558661240",

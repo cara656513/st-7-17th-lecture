@@ -10,7 +10,7 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await todoApi.get("/todos?_sort=-createdAt");
+      const response = await todoApi.get("/todos");
       setData(response.data);
     } catch (err) {
       setError(err);

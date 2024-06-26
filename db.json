@@ -1,0 +1,37 @@
+{
+  "todos": [
+    {
+      "id": "1718558656872",
+      "title": "1",
+      "contents": "111",
+      "isCompleted": false,
+      "createdAt": 1718558656872,
+      "extraProperty1": "additional data 1",
+      "extraProperty2": "additional data 2",
+      "extraProperty3": "additional data 3"
+    },
+    {
+      "id": "1718558659109",
+      "title": "2",
+      "contents": "222",
+      "isCompleted": false,
+      "createdAt": 1718558659109,
+      "extraProperty2": "additional data 2"
+    },
+    {
+      "id": "1718558661240",
+      "title": "3",
+      "contents": "333",
+      "isCompleted": false,
+      "createdAt": 1718558661240,
+      "extraProperty3": "additional data 3"
+    },
+    {
+      "id": "1719337819364",
+      "title": "4",
+      "contents": "4",
+      "isCompleted": false,
+      "createdAt": 1719337819364
+    }
+  ]
+}

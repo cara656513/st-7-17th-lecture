@@ -10,6 +10,9 @@ export default function Home() {
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:4000/todos");
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       const data = await response.json();
       setData(data);
     } catch (err) {
@@ -37,7 +40,7 @@ export default function Home() {
   return (
     <>
       <h2>서버통신 투두리스트 by useState</h2>
-      <TodoForm fetchData={fetchData} />
+      <TodoForm fetchData={fetchData} setError={setError} />
       <TodoList todos={data} />
     </>
   );

@@ -14,6 +14,9 @@ export default function Detail() {
     const fetchDetail = async () => {
       try {
         const response = await fetch(`http://localhost:4000/todos/${id}`);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         setData(data);
       } catch (err) {

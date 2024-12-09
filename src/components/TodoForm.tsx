@@ -1,26 +1,30 @@
 import { useState } from "react";
 
-export default function TodoForm({ fetchData }) {
+export default function TodoForm({ fetchData, setError }) {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const handleAddTodo = async (e) => {
     e.preventDefault();
     setTitle("");
     setContents("");
-    await fetch("http://localhost:4000/todos", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: Date.now().toString(),
-        title,
-        contents,
-        isCompleted: false,
-        createdAt: Date.now(),
-      }),
-    });
-    await fetchData();
+    try {
+      await fetch("http://localhost:4000/todos", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: Date.now().toString(),
+          title,
+          contents,
+          isCompleted: false,
+          createdAt: Date.now(),
+        }),
+      });
+      await fetchData();
+    } catch (err) {
+      setError(err);
+    }
   };
 
   return (

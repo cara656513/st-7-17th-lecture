@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { todoApi } from "../api/todos";
 
 export default function TodoForm({ fetchData }) {
   const [title, setTitle] = useState("");
@@ -8,12 +7,18 @@ export default function TodoForm({ fetchData }) {
     e.preventDefault();
     setTitle("");
     setContents("");
-    await todoApi.post("/todos", {
-      id: Date.now().toString(),
-      title,
-      contents,
-      isCompleted: false,
-      createdAt: Date.now(),
+    await fetch("http://localhost:4000/todos", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: Date.now().toString(),
+        title,
+        contents,
+        isCompleted: false,
+        createdAt: Date.now(),
+      }),
     });
     await fetchData();
   };

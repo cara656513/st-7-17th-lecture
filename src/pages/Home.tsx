@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { todoApi } from "../api/todos";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 
@@ -10,8 +9,9 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const response = await todoApi.get("/todos");
-      setData(response.data);
+      const response = await fetch("http://localhost:4000/todos");
+      const data = await response.json();
+      setData(data);
     } catch (err) {
       setError(err);
     } finally {

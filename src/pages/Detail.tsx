@@ -1,7 +1,6 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { todoApi } from "../api/todos";
 
 export default function Detail() {
   const { id } = useParams();
@@ -14,8 +13,9 @@ export default function Detail() {
   useEffect(() => {
     const fetchDetail = async () => {
       try {
-        const response = await todoApi(`/todos/${id}`);
-        setData(response.data);
+        const response = await fetch(`http://localhost:4000/todos/${id}`);
+        const data = await response.json();
+        setData(data);
       } catch (err) {
         setError(err);
       } finally {

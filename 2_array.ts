@@ -12,3 +12,5 @@ const tupleArr: [string, number] = ["123", 123];
 
 // 유니온(union) 타입 배열: 각 요소가 여러 가지 타입 중 하나일 수 있음을 나타낼 수 있습니다.
 const unionArr: (string | number)[] = [123, "123", 123, 123, "123"];
+// 리터럴 유니온 타입 배열: 요소를 특정값으로 한정해서 지정할 수 있습니다.
+const validNumbers: (1 | 2 | 3)[] = [1, 2, 3];

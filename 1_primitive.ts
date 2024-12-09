@@ -11,4 +11,17 @@
   if (typeof unknownValue === "number") {
     console.log(unknownValue + 1);
   }
+
+  // 리터럴 타입 : 특정값만을 허용하는 타입을 의미합니다.
+  const dataOnly10: 10 = 10;
+
+  // 유니온 타입: 여러 타입 중 하나를 허용하는 타입
+  let direction: "left" | "right" | "up" | "down";
+  direction = "left";
+
+  // 인터섹션 타입: 모든 타입 조건을 동시에 만족해야하는 타입
+  type RedOrBlue = "red" | "blue";
+  type BlueOrGreen = "blue" | "green";
+  type OnlyBlue = RedOrBlue & BlueOrGreen;
+  let blue: OnlyBlue = "blue";
 }

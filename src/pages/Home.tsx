@@ -1,21 +1,22 @@
 import { useState, useEffect } from "react";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
-import { type Todo } from "../types/todo.type";
+import { type TodoWithIsDone, type Todo } from "../types/todo.type";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<null | Error>(null);
-  const [data, setData] = useState<Todo[]>([]);
+  const [data, setData] = useState<TodoWithIsDone[]>([]);
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     try {
       const response = await fetch("http://localhost:4000/todos");
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-      const data = await response.json();
-      setData(data);
+      const data: Todo[] = await response.json();
+      const todosWithIsDone = data.map((todo) => ({ ...todo, isDone: false }));
+      setData(todosWithIsDone);
     } catch (err) {
       if (err instanceof Error) {
         setError(err);
@@ -46,7 +47,7 @@ export default function Home() {
     <>
       <h2>서버통신 투두리스트 by useState</h2>
       <TodoForm fetchData={fetchData} setError={setError} />
-      <TodoList todos={data} />
+      <TodoList todos={data} setTodos={setData} />
     </>
   );
 }

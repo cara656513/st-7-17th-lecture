@@ -7,5 +7,9 @@ export type Todo = {
   title: string;
   contents: string;
   createdAt: number;
-  extraProperty: ExtraPropertyType;
+  extraProperty?: ExtraPropertyType;
+};
+
+export type TodoWithIsDone = Todo & {
+  isDone: boolean;
 };

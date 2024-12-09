@@ -1,14 +1,15 @@
 import { useEffect } from "react";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Todo } from "../types/todo.type";
 
 export default function Detail() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<null | Error>(null);
+  const [data, setData] = useState<null | Todo>(null);
 
   useEffect(() => {
     const fetchDetail = async () => {
@@ -20,7 +21,11 @@ export default function Detail() {
         const data = await response.json();
         setData(data);
       } catch (err) {
-        setError(err);
+        if (err instanceof Error) {
+          setError(err);
+        } else {
+          setError(new Error(`알 수 없는 에러 발생: ${err}`));
+        }
       } finally {
         setIsLoading(false);
       }
@@ -40,9 +45,9 @@ export default function Detail() {
   return (
     <div>
       <button onClick={() => navigate("/")}>홈으로 이동</button>
-      <p>제목: {data.title}</p>
-      <p>내용: {data.contents}</p>
-      <p>작성일자: {new Date(data.createdAt).toDateString()}</p>
+      <p>제목: {data!.title}</p>
+      <p>내용: {data!.contents}</p>
+      <p>작성일자: {new Date(data!.createdAt).toDateString()}</p>
     </div>
   );
 }

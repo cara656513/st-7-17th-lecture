@@ -1,14 +1,19 @@
 import { useState } from "react";
 
-export default function TodoForm({ fetchData, setError }) {
+type TodoFormType = {
+  fetchData: () => Promise<void>;
+  setError: React.Dispatch<React.SetStateAction<Error | null>>;
+};
+
+export default function TodoForm({ fetchData, setError }: TodoFormType) {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
-  const handleAddTodo = async (e) => {
+  const handleAddTodo: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setTitle("");
     setContents("");
     try {
-      await fetch("http://localhost:4000/todos", {
+      const response = await fetch("http://localhost:4000/todos", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -21,10 +26,21 @@ export default function TodoForm({ fetchData, setError }) {
           createdAt: Date.now(),
         }),
       });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
       await fetchData();
     } catch (err) {
-      setError(err);
+      if (err instanceof Error) {
+        setError(err);
+      } else {
+        setError(new Error(`알 수 없는 에러발생: ${err}`));
+      }
     }
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value);
   };
 
   return (
@@ -35,7 +51,7 @@ export default function TodoForm({ fetchData, setError }) {
         id="title"
         name="title"
         value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        onChange={handleTitleChange}
         required
       />
       <label htmlFor="contents">내용:</label>

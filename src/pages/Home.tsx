@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
+import { type Todo } from "../types/todo.type";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<null | Error>(null);
+  const [data, setData] = useState<Todo[]>([]);
 
   const fetchData = async () => {
     try {
@@ -16,7 +17,11 @@ export default function Home() {
       const data = await response.json();
       setData(data);
     } catch (err) {
-      setError(err);
+      if (err instanceof Error) {
+        setError(err);
+      } else {
+        setError(new Error(`알 수 없는 에러 발생: ${err}`));
+      }
     } finally {
       setIsLoading(false);
     }

@@ -1,6 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { type Todo } from "../types/todo.type";
 
-export default function TodoList({ todos }) {
+type TodoListProps = {
+  todos: Todo[];
+};
+
+export default function TodoList({ todos }: TodoListProps) {
   const navigate = useNavigate();
   return (
     <ul style={{ listStyle: "none", width: 250 }}>

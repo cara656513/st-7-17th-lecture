@@ -1,4 +1,4 @@
-import axios from "axios";
+/// <reference lib="dom" />
 
 // 함수 선언문에서의 타입 지정
 function greet(name: string): string {
@@ -37,9 +37,8 @@ const logMessage3 = (message: string): void => {
 // };
 // TODO: 함수 타입 정의할 것
 const getTodos = async () => {
-  const response = await axios.get(
-    "https://jsonplaceholder.typicode.com/todos/1",
-  );
-  return response.data;
+  const response = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+  const data = await response.json();
+  return data;
 };
 getTodos().then((data) => console.log(data));

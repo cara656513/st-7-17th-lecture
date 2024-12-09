@@ -18,6 +18,7 @@ type Address = {
   country: string;
 };
 
+// 객체 타입간 인터섹션은 모든 조건을 만족하는 새로운 객체 타입
 type PersonWithAddress = Person & {
   address: Address;
 };

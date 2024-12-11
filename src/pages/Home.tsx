@@ -3,11 +3,11 @@ import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
 
 export default function Home() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<>(null);
+  const [data, setData] = useState<>([]);
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<[]> => {
     try {
       const response = await fetch("http://localhost:4000/todos");
       if (!response.ok) {

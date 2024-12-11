@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 export default function TodoForm({ fetchData, setError }) {
-  const [title, setTitle] = useState("");
-  const [contents, setContents] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [contents, setContents] = useState<string>("");
   const handleAddTodo = async (e) => {
     e.preventDefault();
     setTitle("");

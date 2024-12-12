@@ -44,9 +44,9 @@ export default function Detail() {
   return (
     <div>
       <button onClick={() => navigate("/")}>홈으로 이동</button>
-      <p>제목: {data?.title}</p>
-      <p>내용: {data?.contents}</p>
-      <p>작성일자: {data ? new Date(data.createdAt).toDateString() : ""}</p>
+      <p>제목: {data!.title}</p>
+      <p>내용: {data!.contents}</p>
+      <p>작성일자: {new Date(data!.createdAt).toDateString()}</p>
     </div>
   );
 }

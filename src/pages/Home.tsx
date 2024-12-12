@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import TodoForm from "../components/TodoForm";
 import TodoList from "../components/TodoList";
+import { todo } from "../type/type";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<>(null);
-  const [data, setData] = useState<>([]);
+  const [error, setError] = useState<null | Error>(null);
+  const [data, setData] = useState<todo[]>([]);
 
-  const fetchData = async (): Promise<[]> => {
+  const fetchData = async (): Promise<void> => {
     try {
       const response = await fetch("http://localhost:4000/todos");
       if (!response.ok) {
@@ -16,7 +17,9 @@ export default function Home() {
       const data = await response.json();
       setData(data);
     } catch (err) {
-      setError(err);
+      if (err instanceof Error) {
+        setError(err);
+      }
     } finally {
       setIsLoading(false);
     }

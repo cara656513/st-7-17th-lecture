@@ -1,9 +1,14 @@
 import { useState } from "react";
 
-export default function TodoForm({ fetchData, setError }) {
+type todoForm = {
+  fetchData: () => Promise<void>;
+  setError: React.Dispatch<React.SetStateAction<Error | null>>;
+};
+
+export default function TodoForm({ fetchData, setError }: todoForm) {
   const [title, setTitle] = useState<string>("");
   const [contents, setContents] = useState<string>("");
-  const handleAddTodo = async (e) => {
+  const handleAddTodo: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     setTitle("");
     setContents("");
@@ -23,7 +28,9 @@ export default function TodoForm({ fetchData, setError }) {
       });
       await fetchData();
     } catch (err) {
-      setError(err);
+      if (err instanceof Error) {
+        setError(err);
+      }
     }
   };
 
